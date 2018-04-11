@@ -1,6 +1,3 @@
-# Project Proposal
----
-
 # CS126 Project Proposal: Head Soccer ⚽
 A miniature C++ remake of the Head Soccer game!
 
