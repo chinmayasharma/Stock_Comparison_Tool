@@ -5,9 +5,6 @@ A miniature C++ remake of the Head Soccer game!
 A C++ game of Head Soccer using openFrameworks and ofBox2d and OpenGL  libraries. Besides basics rounds, the game will feature a Tournament with point accumulation features. Those points could possibly be redeemed for training and boosting team performance. Additionally, it will try to support a multi-player mode.
 
 
-***
-
-
 ## Description
 
 The c++ application will be similar to the Head Soccer game on the App Store. There will be a character, possibly my face, which will serve as the head. It will be capable of moving forward and backwards, in addition to jumping. 
@@ -16,12 +13,11 @@ Attached below is a GIF from the actual game.
 
 ![](https://vignette.wikia.nocookie.net/headsoccer/images/2/20/5rrqPw.gif/revision/latest?cb=20150703091601)
 
-***
+
 ## Libraries: 
 
 1) ofBox2D for Physics related implementations in the game
 2) openGL for 2D Graphics in the game
-***
 
 
 ## Rough (Ideal) Plan / Checkpoints for next 4 weeks
@@ -37,7 +33,7 @@ __Week 3:__ Customize layout and add additional features to game
 
 __Week 4:__ Extensively document project files and polish game details
 
-***
+
 
 ## Relevant Personal Background
 
