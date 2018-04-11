@@ -16,8 +16,7 @@ A C++ game of Head Soccer using openFrameworks and ofBox2d and OpenGL  libraries
 The c++ application will be similar to the Head Soccer game on the App Store. There will be a character, possibly my face, which will serve as the head. It will be capable of moving forward and backwards, in addition to jumping. 
 
 Attached below is a GIF from the actual game.
-https://vignette.wikia.nocookie.net/headsoccer/images/7/7e/Nepal_Power_Effect.GIF
-
+http://headsoccer.wikia.com/wiki/File:5rrqPw.gif
 
 ***
 ## Libraries: 
