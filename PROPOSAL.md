@@ -1,43 +1,30 @@
-# CS126 Project Proposal: 💲tock Comparison Platform 💰💰
+# CS126 Project Proposal: Stock Performance Comparison Platform 💰💰
 A miniature C++ platform that allows the user to compare different stocks, ased on data visualization!
 
-## Summary
-A C++ game of Head Soccer using openFrameworks and ofBox2d and OpenGL libraries. Besides basics rounds, the game will feature a Tournament with point accumulation features. Those points could possibly be redeemed for training and boosting team performance. Additionally, it will try to support a multi-player mode.
+## Summary:
+The C++ application will allow users to specify stock ticker symbols,  which will then be used to retrieve performance data from the Yahoo! Finance API. 
 
+Visuals will be generated from the data, allowing users to make comparisons between the specified ticker symbols.
 
-## Description
-
-The c++ application will be similar to the Head Soccer game on the App Store. There will be a character, possibly my face, which will serve as the head. It will be capable of moving forward and backwards, in addition to jumping. 
-
-Attached below is a GIF from the actual game.
-
-![](https://vignette.wikia.nocookie.net/headsoccer/images/2/20/5rrqPw.gif/revision/latest?cb=20150703091601)
-
+![](https://i.makeagif.com/media/7-14-2015/hO4TpB.gif)
 
 ## Libraries: 
 
-1) ofBox2D for Physics related implementations in the game
-2) openGL for 2D Graphics in the game
+1) curl will be used to retrieve data from the Yahoo! Finance API
+2) openGL will be used to generate 2D Visual Graphics from the data
 
 
-## Rough (Ideal) Plan / Checkpoints for next 4 weeks
+## Checkpoints for next 3 weeks:
 
-__Week 1:__ Running prototype of basic Head Soccer game. Detailed plan for next phase
+__Week 1:__ Make data retrieving aspect of the application
 
-+ Get a basic Head Soccer game up and running. 
-+ Plan next phase: add GUIs, improve game engine, etc.
+__Week 2:__ Work on generating visuals from the data.
 
-__Week 2:__ Running visually pleasing prototype of game mentioned
-
-__Week 3:__ Customize layout and add additional features to game
-
-__Week 4:__ Extensively document project files and polish game details
+__Week 3:__ Polishing the interface, while attempting to add a prediction method
 
 
+### Relevant Personal Background:
 
-## Relevant Personal Background
+1) Previously worked with retrieving APIs
 
-1) Significant programming experience in Java and Python
-
-2) A basic understanding of working with Game Engines and Graphics
-
+2) A basic understanding of Financial Markets
