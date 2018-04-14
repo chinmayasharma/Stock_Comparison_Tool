@@ -1,8 +1,8 @@
-# CS126 Project Proposal: Head Soccer ⚽
-A miniature C++ remake of the Head Soccer game!
+# CS126 Project Proposal: 💲tock Comparison Platform 💰💰
+A miniature C++ platform that allows the user to compare different stocks, ased on data visualization!
 
 ## Summary
-A C++ game of Head Soccer using openFrameworks and ofBox2d and OpenGL  libraries. Besides basics rounds, the game will feature a Tournament with point accumulation features. Those points could possibly be redeemed for training and boosting team performance. Additionally, it will try to support a multi-player mode.
+A C++ game of Head Soccer using openFrameworks and ofBox2d and OpenGL libraries. Besides basics rounds, the game will feature a Tournament with point accumulation features. Those points could possibly be redeemed for training and boosting team performance. Additionally, it will try to support a multi-player mode.
 
 
 ## Description
