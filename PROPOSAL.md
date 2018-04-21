@@ -1,8 +1,8 @@
 # CS126 Project Proposal: Stock Performance Comparison Platform 💰💰
-A miniature C++ platform that allows the user to compare different stocks, ased on data visualization!
+A miniature C++ platform that allows the user to compare different stocks, based on data visualization!
 
 ## Summary:
-The C++ application will allow users to specify stock ticker symbols,  which will then be used to retrieve performance data from the Yahoo! Finance API. 
+The C++ application will allow users to specify stock ticker symbols, which will then be used to retrieve performance data from the Alpha Vantage API. 
 
 Visuals will be generated from the data, allowing users to make comparisons between the specified ticker symbols.
 
@@ -10,7 +10,7 @@ Visuals will be generated from the data, allowing users to make comparisons betw
 
 ## Libraries: 
 
-1) curl will be used to retrieve data from the Yahoo! Finance API
+1) ofxJson will be used to retrieve data from the Alpha Vantage API
 2) openGL will be used to generate 2D Visual Graphics from the data
 
 
@@ -20,7 +20,7 @@ __Week 1:__ Make data retrieving aspect of the application
 
 __Week 2:__ Work on generating visuals from the data.
 
-__Week 3:__ Polishing the interface, while attempting to add a prediction method
+__Week 3:__ Polishing the interface, while attempting to add a real time and prediction aspect
 
 
 ### Relevant Personal Background:
