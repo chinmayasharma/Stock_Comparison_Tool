@@ -19,9 +19,20 @@ private:
     
 public:
 
-    Stock ();
+    Stock (string set_symbol,
+           double set_open,
+           double set_high,
+           double set_low,
+           double set_close,
+           long set_volume);
 
-    void get_name();
+    string get_symbol();
+    double get_open();
+    double get_high();
+    double get_low();
+    double get_close();
+    long get_volume();
+
     
     void print();
 };
