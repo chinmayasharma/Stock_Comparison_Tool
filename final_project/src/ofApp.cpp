@@ -1,14 +1,17 @@
 #include "ofApp.h"
-#include "stock.h"
+#include "data.h"
 
 using std::string;
 using std::transform;
-using std::stoi;
+using std::stol;
+using std::stod;
 
 std::vector<string> ticker_symbols;
-std::vector<Stock> stocks;
+std::vector<Data> stocks;
 
-
+void make_api_request(string symbol) {
+    
+}
 
 void ofApp::setup()
 {
@@ -28,11 +31,23 @@ void ofApp::draw()
 {
     ofBackground(0);
     ofSetColor(255);
+    for (auto value : json["Monthly Time Series"])
+    {
+        //string date = json["Monthly Time Series"][i].asString();
+        string open_value = value["1. open"].asString();
+        string high_value = value["2. high"].asString();
+        string low_value = value["3. low"].asString();
+        string close_value = value["4. close"].asString();
+        string volume_value = value["5. volume"].asString();
+        
+        Data stock_value = *new Data(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stol(volume_value));
+        
+        stocks.push_back(stock_value);
+
+
+        ofDrawBitmapString(stod(open_value), 20, 40);
+    }
     
-   
-
-        ofDrawBitmapString(json, 20,40);
-
 }
 
 void user_input()   {
