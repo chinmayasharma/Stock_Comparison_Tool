@@ -9,13 +9,12 @@ using std::stod;
 std::vector<string> ticker_symbols;
 std::vector<Data> stocks;
 
-void make_api_request(string symbol) {
+/**
+ * Makes an API request to retrieve data from Alpha Vantage.
+ */
+void ofApp::make_api_request(string symbol) {
     
-}
-
-void ofApp::setup()
-{
-    string url = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=demo";
+    string url = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=" +symbol+"&apikey=UJP0F3I7MQPJM9WR";
     
     bool parsingSuccessful = json.open(url);
     
@@ -27,13 +26,14 @@ void ofApp::setup()
     }
 }
 
-void ofApp::draw()
-{
-    ofBackground(0);
-    ofSetColor(255);
+/**
+ * Parses data from website and creates Stock objects.
+ */
+void ofApp::parse() {
+    
+    // accesses all elements in the JSON array
     for (auto value : json["Monthly Time Series"])
     {
-        //string date = json["Monthly Time Series"][i].asString();
         string open_value = value["1. open"].asString();
         string high_value = value["2. high"].asString();
         string low_value = value["3. low"].asString();
@@ -43,35 +43,52 @@ void ofApp::draw()
         Data stock_value = *new Data(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stol(volume_value));
         
         stocks.push_back(stock_value);
-
-
-        ofDrawBitmapString(stod(open_value), 20, 40);
     }
-    
 }
 
-void user_input()   {
+void ofApp::setup(){
+    user_input();
+    make_api_request(ticker_symbols[0]);
+    parse();
+    
+    
+    ofSetBackgroundColor(150);
+    
+    
+    // Prepare the points for the plot
+    int nPoints = 100;
+    vector<ofxGPoint> points;
+    
+    for (int i = 0; i < nPoints; ++i) {
+        points.emplace_back(i, stocks[i].get_low());
+    }
+    
+    // Set the plot position on the screen
+    plot.setPos(25, 25);
+    
+    // Set the plot title and the axis labels
+    plot.setTitleText("A very simple example");
+    plot.getXAxis().setAxisLabelText("x axis");
+    plot.getYAxis().setAxisLabelText("y axis");
+    
+    // Add the points
+    plot.setPoints(points);
+    plot.setFontsMakeContours(true);
+}
+
+void ofApp::draw()
+{
+    //ofBeginSaveScreenAsPDF("screenshot-" + ofGetTimestampString() + ".pdf", false);
+    plot.defaultDraw();
+    //ofEndSaveScreenAsPDF();
+}
+
+void ofApp::user_input()   {
     
     string total_companies_str;
     
-    cout << "How many companies would you like to analyze: ";
-    int total_companies = 0;
     
-    while (total_companies <= 0) {
-        try {
-            cin >> total_companies_str;
-            total_companies = stoi(total_companies_str);
-            
-            if (total_companies <= 0 ) {
-                cout << "Invalid number. Enter any number greater than 0: ";
-            }
-            
-        } catch (std::exception e) {
-            cout << "Invalid number. Enter any number greater than 0: ";
-        }
-    }
-    
-    for (int i = 0; i < total_companies; i++) {
+    for (int i = 0; i < 1; i++) {
         string ticker;
         cout << "Enter ticker symbol: ";
         cin >> ticker;
@@ -79,7 +96,7 @@ void user_input()   {
         transform(ticker.begin(), ticker.end(), ticker.begin(), ::toupper);
         ticker_symbols.push_back(ticker);
     }
-    
 }
+
 
 
