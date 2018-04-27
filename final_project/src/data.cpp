@@ -1,9 +1,11 @@
 #include "data.h"
 #include <vector>
 #include <iostream>
+#include <map>
 
 using std::string;
 using std::move;
+using std::map;
 
 /**
  * Constructor for Stock obbjects
@@ -14,6 +16,8 @@ Data::Data(double set_open, double set_high, double set_low, double set_close, l
     this->low = set_low;
     this->close = set_close;
     this->volume = set_volume;
+    
+    
 }
 
 /**

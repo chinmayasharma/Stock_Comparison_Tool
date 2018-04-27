@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include <map>
 
 using std::string;
+static std::map<std::string, int> data_map = {{"open", 0},{"high",1},{"low",2},{"close",3},{"volume",4}};
 
 class Data {
     
@@ -15,7 +17,7 @@ private:
     double high;
     double low;
     double close;
-    long volume;
+    double volume;
     
 public:
     
@@ -32,8 +34,8 @@ public:
     double get_close();
     long get_volume();
     
-    
     void print();
+
 };
 
 #endif /* data_h */

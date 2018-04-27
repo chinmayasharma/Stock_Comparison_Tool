@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		25E056DBA91749C7CA48B555 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E7761DA3D9E185BEF7EBF68 /* jsoncpp.cpp */; };
+		279AAB2F51D2310C0D56EF85 /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90344C7DF9F7AA24083BF030 /* ofxDatGuiComponent.cpp */; };
 		3C470296536349E9FA8B284F /* ofxGPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE0838A9F3F941CC2AC7DDAC /* ofxGPoint.cpp */; };
 		6BC6F44971364AF58BD7DF46 /* ofxGPlot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC7DC0CB94B2E4790450DF47 /* ofxGPlot.cpp */; };
 		7A4672EEE0CBDA94E2631800 /* ofxGLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB590568A8BA2329902B9C3 /* ofxGLayer.cpp */; };
+		8747D9DD087D4ABADC44C5F6 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3E9DCB69F021DFECC380E62 /* ofxSmartFont.cpp */; };
+		8EEBC3819B50D2F0B45050AE /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D547FA5189816B9AC1E65EF /* ofxDatGui.cpp */; };
 		A1DD48B7E85BA69B9D314FE5 /* ofxGAxis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E00C0D7DF8E0241F81917F /* ofxGAxis.cpp */; };
 		A859F30AD5C5FC6269ADD109 /* ofxGTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD9E18B45A00EA70DEB92483 /* ofxGTitle.cpp */; };
 		C65DBAFF5FD39447165EE5A7 /* ofxGAxisLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1888FE5460D6D0FEA6ABB013 /* ofxGAxisLabel.cpp */; };
@@ -52,27 +55,49 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		013514EC23A3C18C96CFD034 /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
+		06F9B246EA378058D84B3C39 /* ofxDatGuiColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiColorPicker.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiColorPicker.h; sourceTree = SOURCE_ROOT; };
 		09F63CEFE50347C35659158F /* ofxGPlot.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGPlot.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGPlot.h; sourceTree = SOURCE_ROOT; };
+		0D22E2E722AA19EF596F10BE /* ofxDatGuiIntObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiIntObject.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiIntObject.h; sourceTree = SOURCE_ROOT; };
 		11C0E24A7992A2DE65680620 /* ofxGrafica.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGrafica.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGrafica.h; sourceTree = SOURCE_ROOT; };
 		12558C703702BD13D6797EBD /* ofxGHistogram.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGHistogram.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGHistogram.cpp; sourceTree = SOURCE_ROOT; };
 		1888FE5460D6D0FEA6ABB013 /* ofxGAxisLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGAxisLabel.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGAxisLabel.cpp; sourceTree = SOURCE_ROOT; };
+		1E19C98690DFEFC4E3ECCA75 /* ofxDatGuiTimeGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTimeGraph.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiTimeGraph.h; sourceTree = SOURCE_ROOT; };
+		3110479D83877AD5B8ACE402 /* ofxDatGuiGroups.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiGroups.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiGroups.h; sourceTree = SOURCE_ROOT; };
 		359A3D771BE6EC4BB1C5C69D /* ofxGPoint.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGPoint.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGPoint.h; sourceTree = SOURCE_ROOT; };
+		35B8BB3707FC3D85DB22AAB7 /* ofxDatGuiFRM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiFRM.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiFRM.h; sourceTree = SOURCE_ROOT; };
 		3C48D48A4AA5866334DB779D /* ofxJSON.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxJSON.h; path = ../../of_v0.9.8_osx_release/addons/ofxJSON/src/ofxJSON.h; sourceTree = SOURCE_ROOT; };
+		3CCF5208741A735071CBB081 /* ofxDatGuiLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiLabel.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiLabel.h; sourceTree = SOURCE_ROOT; };
 		4092D5AED322B6D8E933F099 /* ofxGConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGConstants.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGConstants.h; sourceTree = SOURCE_ROOT; };
+		434C90BD50D8014D70A1E113 /* ofxDatGuiButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiButton.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiButton.h; sourceTree = SOURCE_ROOT; };
 		4538E2E46E1E4B7B6CA69724 /* data.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = data.cpp; path = src/data.cpp; sourceTree = SOURCE_ROOT; };
 		45E00C0D7DF8E0241F81917F /* ofxGAxis.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGAxis.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGAxis.cpp; sourceTree = SOURCE_ROOT; };
+		62478333402EA55A8C27452C /* ofxDatGuiTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTheme.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes/ofxDatGuiTheme.h; sourceTree = SOURCE_ROOT; };
+		6259C28B7BFCCADA9B735FBC /* ofxDatGuiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiConstants.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiConstants.h; sourceTree = SOURCE_ROOT; };
 		66F2C87248B5522EEBD89101 /* ofxGLayer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGLayer.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGLayer.h; sourceTree = SOURCE_ROOT; };
 		70A1BAF40429505E2AC880EB /* json.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = json.h; path = ../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp/include/json/json.h; sourceTree = SOURCE_ROOT; };
 		7760C7009866C5F5465D5541 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxJSONElement.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxJSON/src/ofxJSONElement.cpp; sourceTree = SOURCE_ROOT; };
+		7A73624468EBC0102A49528D /* ofxDatGuiTextInputField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInputField.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiTextInputField.h; sourceTree = SOURCE_ROOT; };
 		7E7761DA3D9E185BEF7EBF68 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp/src/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
 		80AC174767608F46002623E2 /* ofxGAxisLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGAxisLabel.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGAxisLabel.h; sourceTree = SOURCE_ROOT; };
+		8C1B09863526D3267E920FBB /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiThemes.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes/ofxDatGuiThemes.h; sourceTree = SOURCE_ROOT; };
+		90344C7DF9F7AA24083BF030 /* ofxDatGuiComponent.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGuiComponent.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiComponent.cpp; sourceTree = SOURCE_ROOT; };
+		9D547FA5189816B9AC1E65EF /* ofxDatGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGui.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/ofxDatGui.cpp; sourceTree = SOURCE_ROOT; };
+		A33A9B8D1706C9193D9A79B6 /* ofxDatGuiSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiSlider.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiSlider.h; sourceTree = SOURCE_ROOT; };
+		A948D633EBF9F151FD178EDC /* ofxDatGuiMatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiMatrix.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiMatrix.h; sourceTree = SOURCE_ROOT; };
 		ACCDA89C1C82AECAFC4F3D48 /* ofxJSONElement.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxJSONElement.h; path = ../../of_v0.9.8_osx_release/addons/ofxJSON/src/ofxJSONElement.h; sourceTree = SOURCE_ROOT; };
+		B32E5331334AF3824C0FCF15 /* ofxDatGuiEvents.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiEvents.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiEvents.h; sourceTree = SOURCE_ROOT; };
+		BCEC1D8C53B288D568681151 /* ofxDatGuiControls.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiControls.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiControls.h; sourceTree = SOURCE_ROOT; };
 		BD9E18B45A00EA70DEB92483 /* ofxGTitle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGTitle.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGTitle.cpp; sourceTree = SOURCE_ROOT; };
 		C19121FB0F8574B23C66ED35 /* ofxGAxis.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGAxis.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGAxis.h; sourceTree = SOURCE_ROOT; };
 		C361073D563F94B32C350A68 /* ofxGHistogram.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGHistogram.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGHistogram.h; sourceTree = SOURCE_ROOT; };
+		C7951EB75079B6A9E7C40E08 /* ofxDatGuiComponent.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiComponent.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiComponent.h; sourceTree = SOURCE_ROOT; };
+		CE2B1B5BB5EE2BA86720CCEC /* ofxDatGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGui.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/ofxDatGui.h; sourceTree = SOURCE_ROOT; };
+		D0C81BCF510403F04D4EB433 /* ofxDatGui2dPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGui2dPad.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGui2dPad.h; sourceTree = SOURCE_ROOT; };
 		D74979C264011B34150F18F5 /* json-forwards.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = "json-forwards.h"; path = "../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp/include/json/json-forwards.h"; sourceTree = SOURCE_ROOT; };
 		DE0838A9F3F941CC2AC7DDAC /* ofxGPoint.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGPoint.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGPoint.cpp; sourceTree = SOURCE_ROOT; };
 		E2ECF8980D2E690A680D7AAC /* ofxGTitle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGTitle.h; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGTitle.h; sourceTree = SOURCE_ROOT; };
+		E3E9DCB69F021DFECC380E62 /* ofxSmartFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSmartFont.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.cpp; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../of_v0.9.8_osx_release/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* final_projectDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = final_projectDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -81,6 +106,8 @@
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../of_v0.9.8_osx_release/libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E77A8A177DF31727798F3ADC /* ofxSmartFont.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSmartFont.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.h; sourceTree = SOURCE_ROOT; };
+		EB41D510B6F5E5E6D3A07F89 /* ofxDatGuiScrollView.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiScrollView.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components/ofxDatGuiScrollView.h; sourceTree = SOURCE_ROOT; };
 		EC7DC0CB94B2E4790450DF47 /* ofxGPlot.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGPlot.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGPlot.cpp; sourceTree = SOURCE_ROOT; };
 		F1D25EC41F318AAFAFA403E2 /* data.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = data.h; path = src/data.h; sourceTree = SOURCE_ROOT; };
 		FCB590568A8BA2329902B9C3 /* ofxGLayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGLayer.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxGrafica/src/ofxGLayer.cpp; sourceTree = SOURCE_ROOT; };
@@ -98,6 +125,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EF29D3ABD6E4147AE024D7A /* ofxSmartFont */ = {
+			isa = PBXGroup;
+			children = (
+				E3E9DCB69F021DFECC380E62 /* ofxSmartFont.cpp */,
+				E77A8A177DF31727798F3ADC /* ofxSmartFont.h */,
+			);
+			name = ofxSmartFont;
+			sourceTree = "<group>";
+		};
 		2865DAEF86B1907A704CA70B /* ofxJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,11 +185,31 @@
 			name = json;
 			sourceTree = "<group>";
 		};
+		69146F0BA46E48E576618E5E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				0EF29D3ABD6E4147AE024D7A /* ofxSmartFont */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
 		6948EE371B920CB800B5AC1A /* local_addons */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = local_addons;
+			sourceTree = "<group>";
+		};
+		8870759BC9CAEA1E4E9EA3A8 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				0D22E2E722AA19EF596F10BE /* ofxDatGuiIntObject.h */,
+				90344C7DF9F7AA24083BF030 /* ofxDatGuiComponent.cpp */,
+				6259C28B7BFCCADA9B735FBC /* ofxDatGuiConstants.h */,
+				B32E5331334AF3824C0FCF15 /* ofxDatGuiEvents.h */,
+				C7951EB75079B6A9E7C40E08 /* ofxDatGuiComponent.h */,
+			);
+			name = core;
 			sourceTree = "<group>";
 		};
 		8A1091F449A287170D89AC00 /* ofxGrafica */ = {
@@ -162,6 +218,35 @@
 				3CE288ADBD81B2DA3D900846 /* src */,
 			);
 			name = ofxGrafica;
+			sourceTree = "<group>";
+		};
+		911FE1C75E520EE70A7B4830 /* themes */ = {
+			isa = PBXGroup;
+			children = (
+				62478333402EA55A8C27452C /* ofxDatGuiTheme.h */,
+				8C1B09863526D3267E920FBB /* ofxDatGuiThemes.h */,
+			);
+			name = themes;
+			sourceTree = "<group>";
+		};
+		947FCD1248D8B0A16B53C1AA /* components */ = {
+			isa = PBXGroup;
+			children = (
+				06F9B246EA378058D84B3C39 /* ofxDatGuiColorPicker.h */,
+				A33A9B8D1706C9193D9A79B6 /* ofxDatGuiSlider.h */,
+				35B8BB3707FC3D85DB22AAB7 /* ofxDatGuiFRM.h */,
+				1E19C98690DFEFC4E3ECCA75 /* ofxDatGuiTimeGraph.h */,
+				7A73624468EBC0102A49528D /* ofxDatGuiTextInputField.h */,
+				434C90BD50D8014D70A1E113 /* ofxDatGuiButton.h */,
+				BCEC1D8C53B288D568681151 /* ofxDatGuiControls.h */,
+				3110479D83877AD5B8ACE402 /* ofxDatGuiGroups.h */,
+				EB41D510B6F5E5E6D3A07F89 /* ofxDatGuiScrollView.h */,
+				3CCF5208741A735071CBB081 /* ofxDatGuiLabel.h */,
+				D0C81BCF510403F04D4EB433 /* ofxDatGui2dPad.h */,
+				013514EC23A3C18C96CFD034 /* ofxDatGuiTextInput.h */,
+				A948D633EBF9F151FD178EDC /* ofxDatGuiMatrix.h */,
+			);
+			name = components;
 			sourceTree = "<group>";
 		};
 		977A836DD2C489CCC5E330FF /* jsoncpp */ = {
@@ -176,6 +261,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				D8DD1043C333F6F63C8685E6 /* ofxDatGui */,
 				8A1091F449A287170D89AC00 /* ofxGrafica */,
 				2865DAEF86B1907A704CA70B /* ofxJSON */,
 			);
@@ -196,6 +282,14 @@
 				58AD3BD71B781D9BC25763C8 /* json */,
 			);
 			name = include;
+			sourceTree = "<group>";
+		};
+		D8DD1043C333F6F63C8685E6 /* ofxDatGui */ = {
+			isa = PBXGroup;
+			children = (
+				E9B32C117486580389FAFF01 /* src */,
+			);
+			name = ofxDatGui;
 			sourceTree = "<group>";
 		};
 		E4328144138ABC890047C5CB /* Products */ = {
@@ -238,6 +332,19 @@
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		E9B32C117486580389FAFF01 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8870759BC9CAEA1E4E9EA3A8 /* core */,
+				CE2B1B5BB5EE2BA86720CCEC /* ofxDatGui.h */,
+				9D547FA5189816B9AC1E65EF /* ofxDatGui.cpp */,
+				69146F0BA46E48E576618E5E /* libs */,
+				947FCD1248D8B0A16B53C1AA /* components */,
+				911FE1C75E520EE70A7B4830 /* themes */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		F40E80CB2D443CBA9581DD03 /* libs */ = {
@@ -338,6 +445,9 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				F3E05E28DA56AAA95DECFED3 /* data.cpp in Sources */,
+				279AAB2F51D2310C0D56EF85 /* ofxDatGuiComponent.cpp in Sources */,
+				8EEBC3819B50D2F0B45050AE /* ofxDatGui.cpp in Sources */,
+				8747D9DD087D4ABADC44C5F6 /* ofxSmartFont.cpp in Sources */,
 				A859F30AD5C5FC6269ADD109 /* ofxGTitle.cpp in Sources */,
 				C65DBAFF5FD39447165EE5A7 /* ofxGAxisLabel.cpp in Sources */,
 				3C470296536349E9FA8B284F /* ofxGPoint.cpp in Sources */,
@@ -408,6 +518,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes,
 					../../of_v0.9.8_osx_release/addons/ofxGrafica/src,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp,
@@ -473,6 +589,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes,
 					../../of_v0.9.8_osx_release/addons/ofxGrafica/src,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp,
@@ -508,6 +630,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes,
 					../../of_v0.9.8_osx_release/addons/ofxGrafica/src,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp,
@@ -544,6 +672,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/components,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/libs/ofxSmartFont,
+					../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes,
 					../../of_v0.9.8_osx_release/addons/ofxGrafica/src,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs,
 					../../of_v0.9.8_osx_release/addons/ofxJSON/libs/jsoncpp,
