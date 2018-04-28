@@ -11,7 +11,8 @@ Visuals will be generated from the data, allowing users to make comparisons betw
 ## Libraries: 
 
 1) ofxJson will be used to retrieve data from the Alpha Vantage API
-2) openGL will be used to generate 2D Visual Graphics from the data
+2) ofxGrafica will be used to generate graphs 
+3) ofxDatGUi will be used to create the User Interface
 
 
 ## Checkpoints for next 3 weeks:
