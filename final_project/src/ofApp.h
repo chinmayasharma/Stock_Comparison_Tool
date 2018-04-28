@@ -10,15 +10,17 @@
 class ofApp: public ofBaseApp
 {
 public:
+    
     void setup();
     void draw();
     void user_input();
     void make_api_request(std::string symbol);
     void parse();
-    void generate_plot(std::vector<std::vector<Data>> stock_data);
+    void generate_comparison_plot(std::vector<std::vector<Data>> stock_data);
+    void generate_display_plot(std::vector<std::vector<Data>> stock_data);
+
 
     ofxJSONElement json;
-    std::vector<ofxGPlot> all_plots;
     
     std::vector<string> ticker_symbols;
     string ticker_one;
@@ -26,12 +28,11 @@ public:
     std::vector<std::vector<Data>> all_stocks;
     std::vector<Data> stocks;
     
-    ofxGPlot plot;
-    ofxGPlot plot_two;
 
     int range;
-    int attribute_index;
-    string comparison_attribute;
+    bool should_compare;
+    bool should_display;
+    string attribute;
     
     void update();
     
@@ -49,6 +50,10 @@ public:
     
     uint tIndex;
     vector<ofxDatGuiTheme*> themes;
+    
+    ofxGPlot plot;
+
+    
     
 
     

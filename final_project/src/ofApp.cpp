@@ -41,17 +41,21 @@ void ofApp::parse() {
         string close_value = value["4. close"].asString();
         string volume_value = value["5. volume"].asString();
         
-        Data stock_value = *new Data(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stod(volume_value));
+        Data stock_value(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stod(volume_value));
         
         stocks.push_back(stock_value);
     }
     all_stocks.push_back(stocks);
+    stocks.clear();
 }
 
 /**
  *
  */
 void ofApp::setup(){
+    
+    should_compare = false;
+    range = 50;
     
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
@@ -68,6 +72,8 @@ void ofApp::setup(){
     
     // and a couple of simple buttons //
     gui->addButton("compare");
+    gui->addButton("display");
+    gui->addBreak();
     gui->addToggle("toggle fullscreen", true);
     
     // adding the optional header allows you to drag the gui around //
@@ -87,12 +93,9 @@ void ofApp::setup(){
     tIndex = 0;
     
     // launch the app //
-    mFullscreen = true;
+    mFullscreen = false;
     refreshWindow();
     
-    //user_input();
-    
-    //generate_plot(30, all_stocks);
 }
 
 /**
@@ -101,64 +104,73 @@ void ofApp::setup(){
 void ofApp::draw()
 {
     //ofBeginSaveScreenAsPDF("screenshot-" + ofGetTimestampString() + ".pdf", false);
-    //for(int i =0; i < 2; i++)   {
-    //  if (i == 0) {
-    //        all_plots[0].defaultDraw();
+    //if (should_update) {
+    //graph.draw();
     //}
-    //else{
-    //      //all_plots[i].defaultDraw();
-    //}
-    //}
+    //if (should_update)  {
+    plot.defaultDraw();
     
     //ofEndSaveScreenAsPDF();
+    //all_stocks.clear();
+    //should_update = false;
+    //}
 }
 
 /**
  *
  */
-void ofApp::generate_plot(std::vector<std::vector<Data>> stock_data) {
-    
+void ofApp::generate_comparison_plot(std::vector<std::vector<Data>> stock_data) {
     // Prepare the points for the plot
-    std::vector<ofxGPoint> points;
+    std::vector<ofxGPoint> points1;
+    std::vector<ofxGPoint> points2;
     
-    for (int i = 0; i < 2; i++)  {
+    // Set the plot title and the axis labels
+    plot.setTitleText("Comparison Chart:   " +ticker_one+ "   VS   " +ticker_two);
+    plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Days");
+    plot.getYAxis().setAxisLabelText("Comparison Attribute:   " + attribute);
+    
+    for (int j = 0; j < range; j++) {
+        vector<float> values;
         
-        // Set the plot title and the axis labels
-        if (i == 0)  {
-            plot.setTitleText("A very simple example");
-            plot.getXAxis().setAxisLabelText("x axis");
-            plot.getYAxis().setAxisLabelText("y axis");
+        
+        //for (int i = 0; i < 2; i++) {
+        switch (data_map[attribute]) {
+            case 0:
+                points1.emplace_back(j, stock_data[0][j].get_open());
+                points2.emplace_back(j, stock_data[1][j].get_open());
+                break;
+                
+            case 1:
+                points1.emplace_back(j, stock_data[0][j].get_high());
+                points2.emplace_back(j, stock_data[1][j].get_high());
+                break;
+                
+            case 2:
+                points1.emplace_back(j, stock_data[0][j].get_low());
+                points2.emplace_back(j, stock_data[1][j].get_low());
+                break;
+                
+            case 3:
+                points1.emplace_back(j, stock_data[0][j].get_close());
+                points2.emplace_back(j, stock_data[1][j].get_close());
+                break;
+                
+            case 4:
+                points1.emplace_back(j, stock_data[0][j].get_volume());
+                points2.emplace_back(j, stock_data[1][j].get_volume());
+                break;
         }
-        
-        for (int j = 0; j < range; j++) {
-            
-            switch (data_map[comparison_attribute]) {
-                case 0:
-                    points.emplace_back(j, stock_data[i][j].get_open());
-                    break;
-                case 1:
-                    points.emplace_back(j, stock_data[i][j].get_high());
-                    break;
-                case 2:
-                    points.emplace_back(j, stock_data[i][j].get_low());
-                    break;
-                case 3:
-                    points.emplace_back(j, stock_data[i][j].get_close());
-                    break;
-                case 4:
-                    points.emplace_back(j, stock_data[i][j].get_volume());
-                    break;
-            }
-            
-        }
-        // Set the plot position on the screen
-        plot.setPos(25, 25);
-        
-        // Add the points
-        plot.setPoints(points);
-        plot.setFontsMakeContours(true);
-        all_plots.push_back(plot);
     }
+    
+    // Set the plot position on the screen
+    plot.setPos(25, 25);
+    
+    // Add the points
+    plot.addLayer(ticker_one, points1);
+    plot.addLayer(ticker_two, points2);
+    
+    plot.setFontsMakeContours(true);
+    
 }
 
 /**
@@ -166,7 +178,22 @@ void ofApp::generate_plot(std::vector<std::vector<Data>> stock_data) {
  */
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
+    if (e.target->is("compare")) {
+        
+        if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
+            should_compare = true;
+        }
+    }
+    
+    if (e.target->is("display")) {
+        
+        if (((!ticker_one.empty() && ticker_two.empty()) || (ticker_one.empty() && !ticker_two.empty())) && !attribute.empty()) {
+            should_display = true;
+        }
+    }
+    
     cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    
 }
 
 /**
@@ -184,8 +211,9 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
     if (e.target->is("** range")) {
-        range = (int)e.scale;
-        cout << "reached" << endl;
+        
+        range = (int)(e.scale * 100);
+        cout << "reached " << range << endl;
     }
 }
 
@@ -196,11 +224,15 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 {
     if (e.target->is("** ticker #1")) {
         ticker_one = e.target->getText();
-        cout << "reached" << endl;
+        std::transform(ticker_one.begin(), ticker_one.end(), ticker_one.begin(), ::toupper);
+        
+        cout << ticker_one << endl;
     }
     if (e.target->is("** ticker #2")) {
         ticker_two = e.target->getText();
-        cout << "reached" << endl;
+        std::transform(ticker_two.begin(), ticker_two.end(), ticker_two.begin(), ::toupper);
+        
+        cout << ticker_two << endl;
     }
 }
 
@@ -209,7 +241,7 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
  */
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
-    comparison_attribute = e.target->getLabel();
+    attribute = e.target->getLabel();
     
     cout << "onDropdownEvent: " << e.target->getLabel() << " Selected" << endl;
 }
@@ -218,8 +250,18 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
  *
  */
 void ofApp::update() {
-    //make_api_request(ticker_symbols[0]);
-    //make_api_request(ticker_symbols[1]);
+    
+    if(should_compare)   {
+        ofxGPlot new_plot;
+        plot = new_plot;
+        all_stocks.clear();
+        make_api_request(ticker_one);
+        make_api_request(ticker_two);
+        generate_comparison_plot(all_stocks);
+        should_compare = false;
+    }
+    
+    
 }
 
 /**
@@ -227,9 +269,7 @@ void ofApp::update() {
  */
 void ofApp::keyPressed(int key)
 {
-    if (key == 'f') {
-        toggleFullscreen();
-    }   else if (key == 32){
+    if (key == 32){
         tIndex = tIndex < themes.size()-1 ? tIndex+1 : 0;
         gui->setTheme(themes[tIndex]);
     }
@@ -252,7 +292,7 @@ void ofApp::refreshWindow()
 {
     ofSetFullscreen(mFullscreen);
     if (!mFullscreen) {
-        ofSetWindowShape(1920, 1400);
-        ofSetWindowPosition((ofGetScreenWidth()/2)-(1920/2), 0);
+        ofSetWindowShape(1024, 768);
+        ofSetWindowPosition((ofGetScreenWidth()/2)-(1024/2), 0);
     }
 }
