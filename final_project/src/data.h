@@ -7,7 +7,6 @@
 #include <map>
 
 using std::string;
-static std::map<std::string, int> data_map = {{"open", 0},{"high",1},{"low",2},{"close",3},{"volume",4}};
 
 class Data {
     
@@ -24,13 +23,13 @@ public:
           double set_high,
           double set_low,
           double set_close,
-          long set_volume);
+          double set_volume);
     
     double get_open();
     double get_high();
     double get_low();
     double get_close();
-    long get_volume();
+    double get_volume();
     
     void print();
 

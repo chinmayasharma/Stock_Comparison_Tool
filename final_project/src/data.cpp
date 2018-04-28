@@ -10,7 +10,7 @@ using std::map;
 /**
  * Constructor for Stock obbjects
  */
-Data::Data(double set_open, double set_high, double set_low, double set_close, long set_volume) {
+Data::Data(double set_open, double set_high, double set_low, double set_close, double set_volume) {
     this->open = set_open;
     this->high = set_high;
     this->low = set_low;
@@ -41,7 +41,6 @@ double Data::get_high(){
  */
 double Data::get_low(){
     return this->low;
-    
 }
 
 /**
@@ -49,15 +48,13 @@ double Data::get_low(){
  */
 double Data::get_close(){
     return this->close;
-    
 }
 
 /**
  * Getter for Stock Volume traded
  */
-long Data::get_volume(){
+double Data::get_volume(){
     return this->volume;
-    
 }
 
 

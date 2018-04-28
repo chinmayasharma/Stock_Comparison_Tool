@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include "data.h"
+#include "constants.h"
 
 using std::string;
 using std::transform;
@@ -13,7 +14,7 @@ using std::endl;
 void ofApp::make_api_request(string symbol) {
     
     // URL to be parsed
-    string url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" +symbol+"&apikey=UJP0F3I7MQPJM9WR";
+    string url = initial_url_component + "TIME_SERIES_DAILY" + url_symbol_component + symbol+ url_api_key_component;
     
     // Checks if URL was valid
     parsing_successful = json.open(url);
@@ -40,13 +41,13 @@ void ofApp::parse() {
     if (should_compare || should_display)   {
         
         // accesses all elements in the JSON array
-        for (auto value : json["Time Series (Daily)"])
+        for (auto value : json[json_time_series_label])
         {
-            string open_value = value["1. open"].asString();
-            string high_value = value["2. high"].asString();
-            string low_value = value["3. low"].asString();
-            string close_value = value["4. close"].asString();
-            string volume_value = value["5. volume"].asString();
+            string open_value = value[json_open_attribute_label].asString();
+            string high_value = value[json_high_attribute_label].asString();
+            string low_value = value[json_low_attribute_label].asString();
+            string close_value = value[json_close_attribute_label].asString();
+            string volume_value = value[json_volume_attribute_label].asString();
             
             Data stock_value(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stod(volume_value));
             stocks.push_back(stock_value);
@@ -67,40 +68,44 @@ void ofApp::setup(){
     should_compare = false;
     should_display = false;
     
-    ticker_one_color = ofColor::fromHex(0x45B8AC);
-    ticker_two_color = ofColor::fromHex(0x5B5EA6);
+    ticker_one_color = default_color_one;
+    ticker_two_color = default_color_two;
     
-    range = 50;
+    range = default_range;
     
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
     
-    // add some components //
-    gui->addTextInput("**  ticker #1", "# eg.   AAPL #");
-    gui->addColorPicker("**  color #1", ofColor::fromHex(0x45B8AC));
+    // input and color fields for ticker #1
+    gui->addTextInput(ticker_one_label, ticker_one_example);
+    gui->addColorPicker(color_picker_one_label, default_color_one);
     gui->addBreak();
     
-    gui->addTextInput("**  ticker #2", "# eg.   MSFT #");
-    gui->addColorPicker("**  color #2 ", ofColor::fromHex(0x5B5EA6));
-    
-    gui->addBreak();
-    // add a dropdown menu //
-    vector<string> opts = {"open", "low", "high", "close", "volume"};
-    gui->addDropdown("select attribute", opts);
-    gui->addSlider("** range", 0, 100);
+    // input and color fields for ticker #2
+    gui->addTextInput(ticker_two_label, ticker_two_example);
+    gui->addColorPicker(color_picker_two_label, default_color_two);
     gui->addBreak();
     
-    // and a couple of simple buttons //
-    gui->addButton("                                  c o m p a r e");
-    gui->addButton("                                  d i s p l a y");
+    // drop down menu for comparison attributes
+    gui->addDropdown(drop_down_attributes_label, attribute_options);
+    
+    // slider for range of time period
+    gui->addSlider(range_slider_label, 0, 100);
     gui->addBreak();
+    
+    // compare and display buttons
+    gui->addButton(compare_button_label);
+    gui->addButton(display_button_label);
+    gui->addBreak();
+    
+    // misc. utilities
     gui->addButton("screenshot");
     gui->addToggle("toggle fullscreen", true);
     
-    // adding the optional header allows you to drag the gui around //
+    // header to drag the gui and reposition GUI
     gui->addHeader(":: drag me to reposition ::");
     
-    // adding the optional footer allows you to collapse/expand the gui //
+    // footer allows you to expand and collapse GUI
     gui->addFooter();
     
     // once the gui has been assembled, register callbacks to listen for component specific events //
@@ -126,6 +131,8 @@ void ofApp::draw()
     //ofBeginSaveScreenAsPDF("screenshot-" + ofGetTimestampString() + ".pdf", false);
     
     plot.defaultDraw();
+    
+    
 }
 
 /**
@@ -244,14 +251,14 @@ void ofApp::generate_display_plot() {
  */
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target->is("                                  c o m p a r e")) {
+    if (e.target->is(compare_button_label)) {
         
         if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
             should_compare = true;
         }
     }
     
-    if (e.target->is("                                  d i s p l a y")) {
+    if (e.target->is(display_button_label)) {
         
         if (((!ticker_one.empty() && ticker_two.empty()) || (ticker_one.empty() && !ticker_two.empty())) && !attribute.empty()) {
             
@@ -280,7 +287,7 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)
  */
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
-    if (e.target->is("** range")) {
+    if (e.target->is(range_slider_label)) {
         range = (int)(e.scale*100);
     }
 }
@@ -291,7 +298,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 {
     //
-    if (e.target->is("**  ticker #1")) {
+    if (e.target->is(ticker_one_label)) {
         ticker_one = e.target->getText();
         std::transform(ticker_one.begin(), ticker_one.end(), ticker_one.begin(), ::toupper);
         
@@ -302,7 +309,7 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
     }
     
     //
-    if (e.target->is("**  ticker #2")) {
+    if (e.target->is(ticker_two_label)) {
         ticker_two = e.target->getText();
         std::transform(ticker_two.begin(), ticker_two.end(), ticker_two.begin(), ::toupper);
         
@@ -334,10 +341,8 @@ void ofApp::update() {
         
         make_api_request(ticker_one);
         make_api_request(ticker_two);
+        generate_comparison_plot();
         
-        if (parsing_successful) {
-            generate_comparison_plot();
-        }
         should_compare = false;
     }
     
@@ -348,11 +353,7 @@ void ofApp::update() {
         all_stocks.clear();
         
         make_api_request(current_ticker);
-        
-        if(parsing_successful)  {
-            generate_display_plot();
-        }
-        
+        generate_display_plot();
         should_display = false;
     }
 }
@@ -361,11 +362,11 @@ void ofApp::update() {
  *
  */
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)    {
-    if (e.target->is("**  color #1")) {
+    if (e.target->is(color_picker_one_label)) {
         ticker_one_color = e.color;
     }
     
-    if (e.target->is("**  color #2")){
+    if (e.target->is(color_picker_two_label)){
         ticker_two_color = e.color;
     }
 }
