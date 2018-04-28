@@ -21,13 +21,6 @@ Data::Data(double set_open, double set_high, double set_low, double set_close, l
 }
 
 /**
- * Getter for Stock symbol
- */
-string Data::get_symbol(){
-    return this->symbol;
-}
-
-/**
  * Getter for Stock Opening price
  */
 double Data::get_open(){

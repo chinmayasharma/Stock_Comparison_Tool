@@ -12,7 +12,6 @@ static std::map<std::string, int> data_map = {{"open", 0},{"high",1},{"low",2},{
 class Data {
     
 private:
-    string symbol;
     double open;
     double high;
     double low;
@@ -27,7 +26,6 @@ public:
           double set_close,
           long set_volume);
     
-    string get_symbol();
     double get_open();
     double get_high();
     double get_low();
