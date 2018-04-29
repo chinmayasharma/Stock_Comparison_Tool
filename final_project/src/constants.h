@@ -9,7 +9,6 @@
 #define constants_h
 
 #include <string>
-
 using std::string;
 
 
@@ -18,7 +17,9 @@ using std::string;
  */
 
 // JSON attribute parsing labels
-string json_time_series_label = "Time Series (Daily)";
+string json_time_series_daily_label = "Time Series (Daily)";
+string json_time_series_intraday_label = "Time Series (1min)";
+
 string json_open_attribute_label = "1. open";
 string json_high_attribute_label = "2. high";
 string json_low_attribute_label = "3. low";
@@ -26,10 +27,14 @@ string json_close_attribute_label = "4. close";
 string json_volume_attribute_label = "5. volume";
 
 // JSON url components
-string initial_url_component = "https://www.alphavantage.co/query?function=";
+string initial_url_component = "https://www.alphavantage.co/query?function=TIME_SERIES_";
+string daily_series = "DAILY";
+string intra_day_series = "INTRADAY";
 string url_symbol_component = "&symbol=";
 string url_api_key_component = "&apikey=UJP0F3I7MQPJM9WR";
 
+static std::map<std::string, std::string> _map = {{daily_series, json_time_series_daily_label},
+    {intra_day_series, json_time_series_intraday_label}};
 
 /**
  * GUI related constants.

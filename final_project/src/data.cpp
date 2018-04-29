@@ -16,8 +16,6 @@ Data::Data(double set_open, double set_high, double set_low, double set_close, d
     this->low = set_low;
     this->close = set_close;
     this->volume = set_volume;
-    
-    
 }
 
 /**

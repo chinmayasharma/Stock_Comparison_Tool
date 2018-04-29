@@ -7,7 +7,7 @@
 #include "ofxDatGui.h"
 
 
-class ofApp: public ofBaseApp
+class ofApp: public ofBaseApp, ofThread
 {
 public:
     
@@ -19,14 +19,18 @@ public:
     void parse();
     void generate_comparison_plot();
     void generate_display_plot();
-
-    ofxJSONElement json;
     
+    ofxJSONElement json;
+    int json_values;
+    int current_json_values;
     string ticker_one;
     string ticker_two;
     string current_ticker;
     
     string attribute;
+    
+    string current_time_series;
+    string current_json_series;
     
     std::vector<std::vector<Data>> all_stocks;
     std::vector<Data> stocks;
@@ -41,11 +45,14 @@ public:
     bool should_compare;
     bool should_display;
     
+    bool realtime;
+    
     uint tIndex;
     vector<ofxDatGuiTheme*> themes;
     
     ofxGPlot plot;
     ofxDatGui* gui;
+    ofTimer timer;
     
     bool mFullscreen;
     void refreshWindow();
