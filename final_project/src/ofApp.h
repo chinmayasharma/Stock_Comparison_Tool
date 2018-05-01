@@ -9,20 +9,21 @@
 
 class ofApp: public ofBaseApp, ofThread
 {
+    
 public:
     
     void setup();
     void draw();
     void update();
 
-    void make_api_request(std::string symbol);
-    void parse();
-    void generate_comparison_plot();
-    void generate_display_plot();
+    bool make_api_request(std::string symbol);
+    void generate_plot();
+    void additional_setup();
     
-    ofxJSONElement json;
     int json_values;
     int current_json_values;
+    
+    std::vector<std::string> ticker_symbols;
     string ticker_one;
     string ticker_two;
     string current_ticker;
@@ -33,7 +34,6 @@ public:
     string current_json_series;
     
     std::vector<std::vector<Data>> all_stocks;
-    std::vector<Data> stocks;
     
     int range;
     
@@ -41,10 +41,10 @@ public:
     ofColor ticker_two_color;
     ofColor current_ticker_color;
     
-    bool parsing_successful;
+    std::vector<ofColor> ticker_colors;
+    
     bool should_compare;
     bool should_display;
-    
     bool realtime;
     
     uint tIndex;

@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include "data.h"
+#include "utility.h"
 #include "constants.h"
 
 using std::string;
@@ -11,68 +12,28 @@ using std::endl;
 /**
  * Makes an API request to retrieve data from Alpha Vantage.
  */
-void ofApp::make_api_request(string symbol) {
-    string url;
+bool ofApp::make_api_request(string symbol) {
+    ofxJSONElement json;
     // URL to be parsed
-    if(realtime)    {
-        url = initial_url_component + current_time_series + url_symbol_component + symbol+ "&interval=1min" +url_api_key_component;
-    }
-    else{
-        url = initial_url_component + current_time_series + url_symbol_component + symbol+ url_api_key_component;
-    }
+    string url = generate_url(realtime, current_time_series, symbol);
     
     // Checks if URL was valid
-    parsing_successful = json.open(url);
-    
-    if (parsing_successful)
+    if (json.open(url))
     {
         ofLogNotice("ofApp::setup") << json.getRawString(true);
-        parse();
+        all_stocks.push_back(parse(json, current_json_series));
         json.clear();
         
     } else {
         ofLogNotice("ofApp::setup") << "Failed to parse JSON.";
-        should_compare = false;
-        should_display = false;
     }
-}
-
-/**
- * Parses data from website and creates Stock objects.
- */
-void ofApp::parse() {
-    stocks.clear();
-    
-    if (should_compare || should_display)   {
-        
-        // accesses all elements in the JSON array
-        
-        current_json_values = json[current_json_series].size();
-        
-        for (auto value : json[current_json_series])
-        {
-            string open_value = value[json_open_attribute_label].asString();
-            string high_value = value[json_high_attribute_label].asString();
-            string low_value = value[json_low_attribute_label].asString();
-            string close_value = value[json_close_attribute_label].asString();
-            string volume_value = value[json_volume_attribute_label].asString();
-            
-            Data stock_value(stod(open_value), stod(high_value), stod(low_value), stod(close_value), stod(volume_value));
-            stocks.push_back(stock_value);
-        }
-        
-        all_stocks.push_back(stocks);
-        stocks.clear();
-    }
+    return !json.getRawString().empty();
 }
 
 /**
  *
  */
 void ofApp::setup(){
-    
-    should_compare = false;
-    should_display = false;
     
     ticker_one_color = default_color_one;
     ticker_two_color = default_color_two;
@@ -100,8 +61,6 @@ void ofApp::setup(){
     gui->addToggle("realtime", false);
     gui->addSlider(range_slider_label, 0, 100);
     gui->addBreak();
-    
-    
     
     // compare and display buttons
     gui->addButton(compare_button_label);
@@ -144,44 +103,45 @@ void ofApp::draw()
 /**
  *
  */
-void ofApp::generate_comparison_plot() {
+void ofApp::generate_plot() {
     
     // Prepare the points for the plot
+    std::vector<std::vector<ofxGPoint>> all_points;
+    
     std::vector<ofxGPoint> points1;
-    std::vector<ofxGPoint> points2;
+    
+    all_points.push_back(points1);
+    all_points.push_back(points1);
     
     // Set the plot title and the axis labels
     plot.setTitleText("Comparison Chart:   " +ticker_one+ "   VS   " +ticker_two);
     plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Days");
     plot.getYAxis().setAxisLabelText("Comparison Attribute:   " + attribute);
     
-    for (int j = 0; j < range; j++) {
-        
-        switch (data_map[attribute]) {
-            case 0:
-                points1.emplace_back(j, all_stocks[0][j].get_open());
-                points2.emplace_back(j, all_stocks[1][j].get_open());
-                break;
-                
-            case 1:
-                points1.emplace_back(j, all_stocks[0][j].get_high());
-                points2.emplace_back(j, all_stocks[1][j].get_high());
-                break;
-                
-            case 2:
-                points1.emplace_back(j, all_stocks[0][j].get_low());
-                points2.emplace_back(j, all_stocks[1][j].get_low());
-                break;
-                
-            case 3:
-                points1.emplace_back(j, all_stocks[0][j].get_close());
-                points2.emplace_back(j, all_stocks[1][j].get_close());
-                break;
-                
-            case 4:
-                points1.emplace_back(j, all_stocks[0][j].get_volume());
-                points2.emplace_back(j, all_stocks[1][j].get_volume());
-                break;
+    for(int i = 0; i < all_stocks.size(); i++)  {
+        for (int j = 0; j < range; j++) {
+            
+            switch (data_map[attribute]) {
+                case 0:
+                    all_points[i].emplace_back(j, all_stocks[i][j].get_open());
+                    break;
+                    
+                case 1:
+                    all_points[i].emplace_back(j, all_stocks[i][j].get_high());
+                    break;
+                    
+                case 2:
+                    all_points[i].emplace_back(j, all_stocks[i][j].get_low());
+                    break;
+                    
+                case 3:
+                    all_points[i].emplace_back(j, all_stocks[i][j].get_close());
+                    break;
+                    
+                case 4:
+                    all_points[i].emplace_back(j, all_stocks[i][j].get_volume());
+                    break;
+            }
         }
     }
     
@@ -189,73 +149,32 @@ void ofApp::generate_comparison_plot() {
     plot.setPos(50, 50);
     
     // Add the points
-    plot.addLayer(ticker_one, points1);
-    plot.getLayer(ticker_one).setPointColor(ticker_one_color);
+    for(int i = 0; i < all_stocks.size();i++)   {
+        plot.addLayer(ticker_symbols[i], all_points[i]);
+        plot.getLayer(ticker_symbols[i]).setPointColor(ticker_colors[i]);
+    }
     
-    plot.addLayer(ticker_two, points2);
-    plot.getLayer(ticker_two).setPointColor(ticker_two_color);
     plot.setDim(550,550);
     plot.activateZooming(1.1, OF_MOUSE_BUTTON_LEFT, OF_MOUSE_BUTTON_LEFT);
     plot.setFontsMakeContours(true);
 }
 
-/**
- *
- */
-void ofApp::generate_display_plot() {
-    
-    // Prepare the points for the plot
-    std::vector<ofxGPoint> points1;
-    
-    // Set the plot title and the axis labels
-    plot.setTitleText("Display Chart:   " +current_ticker);
-    plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Days");
-    plot.getYAxis().setAxisLabelText("Display Attribute:   " + attribute);
-    
-    for (int j = 0; j < range; j++) {
-        
-        switch (data_map[attribute]) {
-            case 0:
-                points1.emplace_back(j, all_stocks[0][j].get_open());
-                break;
-                
-            case 1:
-                points1.emplace_back(j, all_stocks[0][j].get_high());
-                break;
-                
-            case 2:
-                points1.emplace_back(j, all_stocks[0][j].get_low());
-                break;
-                
-            case 3:
-                points1.emplace_back(j, all_stocks[0][j].get_close());
-                break;
-                
-            case 4:
-                points1.emplace_back(j, all_stocks[0][j].get_volume());
-                break;
-        }
-    }
-    
-    // Set the plot position on the screen
-    plot.setPos(50, 50);
-    
-    // Add the points
-    plot.addLayer(current_ticker, points1);
-    plot.getLayer(current_ticker).setPointColor(current_ticker_color);
-    plot.setDim(550,550);
-    plot.activateZooming(1.1, OF_MOUSE_BUTTON_LEFT, OF_MOUSE_BUTTON_LEFT);
-    plot.setFontsMakeContours(true);
-}
 
 /**
  *
  */
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
+    ticker_symbols.clear();
+    
     if (e.target->is(compare_button_label)) {
         //timer.~ofTimer();
         if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
+            ticker_symbols.push_back(ticker_one);
+            ticker_symbols.push_back(ticker_two);
+            ticker_colors.push_back(ticker_one_color);
+            ticker_colors.push_back(ticker_two_color);
+            
             should_compare = true;
         }
     }
@@ -352,20 +271,13 @@ void ofApp::update() {
         plot = new_plot;
         all_stocks.clear();
         
-        if(realtime)    {
-            current_time_series = intra_day_series;
-            current_json_series = json_time_series_intraday_label;
-            
-            
-        }
-        else {
-            current_time_series = daily_series;
-            current_json_series = json_time_series_daily_label;
-        }
+        additional_setup();
         
-        make_api_request(ticker_one);
-        make_api_request(ticker_two);
-        generate_comparison_plot();
+        if(make_api_request(ticker_one))    {
+            if(make_api_request(ticker_two))    {
+                generate_plot();
+            }
+        }
         should_compare = false;
         
     }
@@ -376,17 +288,12 @@ void ofApp::update() {
         plot = new_plot;
         all_stocks.clear();
         
+        additional_setup();
+       
+        if(make_api_request(current_ticker))    {
+            generate_plot();
+        }
         
-        if(realtime)    {
-            current_time_series = intra_day_series;
-            current_json_series = json_time_series_intraday_label;
-        }
-        else{
-            current_time_series = daily_series;
-            current_json_series = json_time_series_daily_label;
-        }
-        make_api_request(current_ticker);
-        generate_display_plot();
         should_display = false;
     }
 }
@@ -423,5 +330,17 @@ void ofApp::refreshWindow()
     if (!mFullscreen) {
         ofSetWindowShape(1024, 768);
         ofSetWindowPosition((ofGetScreenWidth()/2)-(1024/2), 0);
+    }
+}
+
+void ofApp::additional_setup()  {
+    
+    if(realtime)    {
+        current_time_series = intra_day_series;
+        current_json_series = json_time_series_intraday_label;
+    }
+    else{
+        current_time_series = daily_series;
+        current_json_series = json_time_series_daily_label;
     }
 }

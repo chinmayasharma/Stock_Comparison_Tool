@@ -8,7 +8,9 @@
 #ifndef constants_h
 #define constants_h
 
+#include "ofMain.h"
 #include <string>
+#include <map>
 using std::string;
 
 
@@ -17,73 +19,64 @@ using std::string;
  */
 
 // JSON attribute parsing labels
-string json_time_series_daily_label = "Time Series (Daily)";
-string json_time_series_intraday_label = "Time Series (1min)";
+extern string json_time_series_daily_label;
+extern string json_time_series_intraday_label;
 
-string json_open_attribute_label = "1. open";
-string json_high_attribute_label = "2. high";
-string json_low_attribute_label = "3. low";
-string json_close_attribute_label = "4. close";
-string json_volume_attribute_label = "5. volume";
+extern string json_open_attribute_label;
+extern string json_high_attribute_label;
+extern string json_low_attribute_label;
+extern string json_close_attribute_label;
+extern string json_volume_attribute_label;
 
 // JSON url components
-string initial_url_component = "https://www.alphavantage.co/query?function=TIME_SERIES_";
-string daily_series = "DAILY";
-string intra_day_series = "INTRADAY";
-string url_symbol_component = "&symbol=";
-string url_api_key_component = "&apikey=UJP0F3I7MQPJM9WR";
+extern string initial_url_component;
+extern string daily_series;
+extern string intra_day_series;
+extern string url_symbol_component;
+extern string url_api_key_component;
 
-static std::map<std::string, std::string> _map = {{daily_series, json_time_series_daily_label},
-    {intra_day_series, json_time_series_intraday_label}};
+ extern std::map<std::string, std::string> _map;
 
 /**
  * GUI related constants.
  */
 
 // buttons labels
-string compare_button_label = "                                  c o m p a r e";
-string display_button_label = "                                  d i s p l a y";
+extern string compare_button_label;
+extern string display_button_label;
 
 //text input labels
-string ticker_one_label = "**  ticker #1";
-string ticker_one_example = "# eg.   AAPL #";
+extern string ticker_one_label;
+extern string ticker_one_example;
 
-string ticker_two_label = "**  ticker #2";
-string ticker_two_example = "# eg.   MSFT #";
+extern string ticker_two_label;
+extern string ticker_two_example;
 
 // color picker labels
-string color_picker_one_label = "**  color #1";
-string color_picker_two_label = "**  color #2";
+extern string color_picker_one_label;
+extern string color_picker_two_label;
 
-ofColor default_color_one = ofColor::fromHex(0x45B8AC);
-ofColor default_color_two = ofColor::fromHex(0x5B5EA6);
+extern ofColor default_color_one;
+extern ofColor default_color_two;
 
 // slider labels
 
-string range_slider_label = "** range";
-int default_range = 50;
+extern string range_slider_label;
+extern int default_range;
 
 // drop down meny labels
 
-string drop_down_attributes_label = "select attribute";
+extern string drop_down_attributes_label;
 
 // drop down menu selection attributes
-string drop_down_open_attribute = "OPENING PRICES";
-string drop_down_high_attribute = "HIGHEST PRICES";
-string drop_down_low_attribute = "LOWEST PRICES";
-string drop_down_close_attribute = "CLOSING PRICES";
-string drop_down_volume_attribute = "TRADE VOLUME";
+extern string drop_down_open_attribute;
+extern string drop_down_high_attribute;
+extern string drop_down_low_attribute;
+extern string drop_down_close_attribute;
+extern string drop_down_volume_attribute;
 
-std::vector<string> attribute_options = {drop_down_open_attribute,
-    drop_down_high_attribute,
-    drop_down_low_attribute,
-    drop_down_close_attribute,
-    drop_down_volume_attribute};
+extern std::vector<string> attribute_options;
 
-static std::map<std::string, int> data_map = {{drop_down_open_attribute, 0},
-    {drop_down_high_attribute, 1},
-    {drop_down_low_attribute, 2},
-    {drop_down_close_attribute, 3},
-    {drop_down_volume_attribute, 4}};
+extern std::map<std::string, int> data_map;
 
 #endif /* constants_h */
