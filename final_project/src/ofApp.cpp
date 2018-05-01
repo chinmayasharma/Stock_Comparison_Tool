@@ -10,36 +10,38 @@ using std::cout;
 using std::endl;
 
 /**
- * Makes an API request to retrieve data from Alpha Vantage.
+ * Sets initial values for variables.
  */
-bool ofApp::make_api_request(string symbol) {
-    ofxJSONElement json;
-    // URL to be parsed
-    string url = generate_url(realtime, current_time_series, symbol);
-    
-    // Checks if URL was valid
-    if (json.open(url))
-    {
-        ofLogNotice("ofApp::setup") << json.getRawString(true);
-        all_stocks.push_back(parse(json, current_json_series));
-        json.clear();
-        
-    } else {
-        ofLogNotice("ofApp::setup") << "Failed to parse JSON.";
-    }
-    return !json.getRawString().empty();
-}
-
-/**
- *
- */
-void ofApp::setup(){
-    
+void ofApp::initial_values()    {
     ticker_one_color = default_color_one;
     ticker_two_color = default_color_two;
     
     range = default_range;
     current_time_series = daily_series;
+}
+
+/**
+ * GUI listener calls.
+ */
+void ofApp::gui_listeners() {
+    
+    gui->onButtonEvent(this, &ofApp::onButtonEvent);
+    gui->onToggleEvent(this, &ofApp::onToggleEvent);
+    
+    gui->onSliderEvent(this, &ofApp::onSliderEvent);
+    gui->onTextInputEvent(this, &ofApp::onTextInputEvent);
+    
+    gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
+    gui->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
+}
+
+
+/**
+ * Sets up GUI and initial state of variables.
+ */
+void ofApp::setup(){
+    
+    initial_values();
     
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
@@ -78,12 +80,9 @@ void ofApp::setup(){
     gui->addFooter();
     gui->setWidth(300);
     // once the gui has been assembled, register callbacks to listen for component specific events //
-    gui->onButtonEvent(this, &ofApp::onButtonEvent);
-    gui->onToggleEvent(this, &ofApp::onToggleEvent);
-    gui->onSliderEvent(this, &ofApp::onSliderEvent);
-    gui->onTextInputEvent(this, &ofApp::onTextInputEvent);
-    gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
-    gui->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
+    
+    // sets all GUI listeners
+    gui_listeners();
     
     themes = {  new ofxDatGuiTheme(true)};
     tIndex = 0;
@@ -93,32 +92,97 @@ void ofApp::setup(){
 }
 
 /**
- *
+ * Draws plot.
  */
 void ofApp::draw()
 {
     plot.defaultDraw();
 }
 
+
 /**
- *
+ * Sets up variable values necessary for update.
+ */
+void ofApp::additional_setup()  {
+    
+    ofxGPlot new_plot;
+    plot = new_plot;
+    all_stocks.clear();
+    
+    if(realtime)    {
+        current_time_series = intra_day_series;
+        current_json_series = json_time_series_intraday_label;
+    }
+    else{
+        current_time_series = daily_series;
+        current_json_series = json_time_series_daily_label;
+    }
+}
+
+/**
+ * Updates Plot depending on existing conditions.
+ */
+void ofApp::update() {
+    
+    if(should_compare)   {
+        additional_setup();
+        
+        if(make_api_request(ticker_one))    {
+            if(make_api_request(ticker_two))    {
+                generate_plot();
+            }
+        }
+        should_compare = false;
+    }
+    
+    if (should_display) {
+        additional_setup();
+        
+        if(make_api_request(current_ticker))    {
+            generate_plot();
+        }
+        should_display = false;
+    }
+}
+
+/**
+ * Makes an API request to retrieve data from Alpha Vantage.
+ */
+bool ofApp::make_api_request(string symbol) {
+    
+    ofxJSONElement json;
+    
+    // URL to be parsed
+    string url = generate_url(realtime, current_time_series, symbol);
+    
+    // Checks if URL was valid
+    if (json.open(url))
+    {
+        ofLogNotice("ofApp::setup") << json.getRawString(true);
+        //pushes stock vector to a 2D vector
+        all_stocks.push_back(parse(json, current_json_series));
+        json.clear();
+        
+    } else {
+        ofLogNotice("ofApp::setup") << "Failed to parse JSON.";
+    }
+    return !json.getRawString().empty();
+}
+
+/**
+ * Generates points to be plotted and annotates plot.
  */
 void ofApp::generate_plot() {
     
     // Prepare the points for the plot
     std::vector<std::vector<ofxGPoint>> all_points;
     
-    std::vector<ofxGPoint> points1;
+    std::vector<ofxGPoint> points;
     
-    all_points.push_back(points1);
-    all_points.push_back(points1);
+    all_points.push_back(points);
+    all_points.push_back(points);
     
-    // Set the plot title and the axis labels
-    plot.setTitleText("Comparison Chart:   " +ticker_one+ "   VS   " +ticker_two);
-    plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Days");
-    plot.getYAxis().setAxisLabelText("Comparison Attribute:   " + attribute);
-    
-    for(int i = 0; i < all_stocks.size(); i++)  {
+    for (int i = 0; i < all_stocks.size(); i++)  {
         for (int j = 0; j < range; j++) {
             
             switch (data_map[attribute]) {
@@ -144,57 +208,91 @@ void ofApp::generate_plot() {
             }
         }
     }
-    
-    // Set the plot position on the screen
-    plot.setPos(50, 50);
-    
-    // Add the points
-    for(int i = 0; i < all_stocks.size();i++)   {
+    // Add points to the plot and sets color
+    for (int i = 0; i < all_stocks.size(); i++)   {
+        
         plot.addLayer(ticker_symbols[i], all_points[i]);
         plot.getLayer(ticker_symbols[i]).setPointColor(ticker_colors[i]);
     }
+    // annotates plot
+    annotate_plot();
+}
+
+/**
+ * Annotates plot, setting size and axes.
+ */
+void ofApp::annotate_plot() {
+    
+    plot.setPos(50, 50);
+    
+    
+    // Set the plot title and the axis labels
+    if (ticker_symbols.size() > 1) {
+        plot.setTitleText("Comparison Chart:   " +ticker_symbols[0]+ "   VS   " +ticker_symbols[1]);
+    }
+    else    {
+        plot.setTitleText("Display Chart:   " +ticker_symbols[0]);
+        
+    }
+    if (realtime)   {
+        plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Most Recent Points");
+        
+    }
+    else {
+        plot.getXAxis().setAxisLabelText("Time Period:   (0 - " + std::to_string(range) + " ) Days");
+    }
+    
+    // Set the plot position on the screen
+    
+    plot.getYAxis().setAxisLabelText("Attribute:   " + attribute);
     
     plot.setDim(550,550);
     plot.activateZooming(1.1, OF_MOUSE_BUTTON_LEFT, OF_MOUSE_BUTTON_LEFT);
     plot.setFontsMakeContours(true);
 }
 
-
 /**
- *
+ * Handles button press events.
  */
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     ticker_symbols.clear();
+    ticker_colors.clear();
     
+    // if COMPARE button was pressed
     if (e.target->is(compare_button_label)) {
-        //timer.~ofTimer();
+
+        // ensures that necessary values are selected
         if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
-            ticker_symbols.push_back(ticker_one);
-            ticker_symbols.push_back(ticker_two);
-            ticker_colors.push_back(ticker_one_color);
-            ticker_colors.push_back(ticker_two_color);
             
+            fill_ticker_vectors();
             should_compare = true;
         }
     }
     
+    // if DISPLAY button was pressed
     if (e.target->is(display_button_label)) {
-        //timer.~ofTimer();
+
+        // ensures only one text input was filled
         if (!ticker_one.empty() && ticker_two.empty() && !attribute.empty()) {
             
-            current_ticker_color = ticker_one_color;
+            ticker_symbols.push_back(ticker_one);
+            ticker_colors.push_back(ticker_one_color);
             should_display = true;
         }
         
+        // ensures only one text input was filled
         if (ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
             
-            current_ticker_color = ticker_two_color;
+            ticker_symbols.push_back(ticker_two);
+            ticker_colors.push_back(ticker_two_color);
             should_display = true;
         }
     }
     
+    // if SCREENSHOT button was pressed
     if (e.target->is("screenshot")) {
+        
         ofBeginSaveScreenAsPDF("screenshot-" + ofGetTimestampString() + ".pdf");
         ofEndSaveScreenAsPDF();
     }
@@ -202,46 +300,63 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 }
 
 /**
- *
+ * Sets up ticker vectors.
+ */
+void ofApp::fill_ticker_vectors()   {
+    
+    ticker_symbols.push_back(ticker_one);
+    ticker_symbols.push_back(ticker_two);
+    
+    ticker_colors.push_back(ticker_one_color);
+    ticker_colors.push_back(ticker_two_color);
+}
+
+/**
+ * Handles Toggle Events.
  */
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)
 {
+    // if REALTIME toggle was clicked
     if (e.target->is("realtime")) {
         realtime = !realtime;
     }
     
+    // if TOGGLE FULLSCREEN was clicked
     if (e.target->is("toggle fullscreen")) {
-        toggleFullscreen();
+        mFullscreen = !mFullscreen;
+        gui->getToggle("toggle fullscreen")->setChecked(mFullscreen);
+        refreshWindow();
     }
 }
 
 /**
- *
+ * Handles Slider Events.
  */
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
+    // if RANGE slider was moved
     if (e.target->is(range_slider_label)) {
         range = (int)(e.scale*100);
     }
 }
 
 /**
- *
+ * Handles Text Input Field Entries.
  */
 void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 {
-    //
+    // if LABEL #1 was edited
     if (e.target->is(ticker_one_label)) {
+        
         ticker_one = e.target->getText();
         std::transform(ticker_one.begin(), ticker_one.end(), ticker_one.begin(), ::toupper);
         
         if (!ticker_one.empty())    {
             current_ticker = ticker_one;
         }
-        
     }
     
-    //
+    // if LABEL #2 was edited
     if (e.target->is(ticker_two_label)) {
         ticker_two = e.target->getText();
         std::transform(ticker_two.begin(), ticker_two.end(), ticker_two.begin(), ::toupper);
@@ -253,7 +368,7 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 }
 
 /**
- *
+ * Handles Drop Down Menu Events.
  */
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
@@ -261,68 +376,23 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 }
 
 /**
- *
- */
-void ofApp::update() {
-    
-    //
-    if(should_compare)   {
-        ofxGPlot new_plot;
-        plot = new_plot;
-        all_stocks.clear();
-        
-        additional_setup();
-        
-        if(make_api_request(ticker_one))    {
-            if(make_api_request(ticker_two))    {
-                generate_plot();
-            }
-        }
-        should_compare = false;
-        
-    }
-    
-    //
-    if (should_display) {
-        ofxGPlot new_plot;
-        plot = new_plot;
-        all_stocks.clear();
-        
-        additional_setup();
-       
-        if(make_api_request(current_ticker))    {
-            generate_plot();
-        }
-        
-        should_display = false;
-    }
-}
-
-/**
- *
+ * Handles Color Picker Events.
  */
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)    {
+    
+    // if COLOR #1 is set
     if (e.target->is(color_picker_one_label)) {
         ticker_one_color = e.color;
     }
     
+    // if COLOR #2 is set
     if (e.target->is(color_picker_two_label)){
         ticker_two_color = e.color;
     }
 }
 
 /**
- *
- */
-void ofApp::toggleFullscreen()
-{
-    mFullscreen = !mFullscreen;
-    gui->getToggle("toggle fullscreen")->setChecked(mFullscreen);
-    refreshWindow();
-}
-
-/**
- *
+ * Refreshed Window.
  */
 void ofApp::refreshWindow()
 {
@@ -330,17 +400,5 @@ void ofApp::refreshWindow()
     if (!mFullscreen) {
         ofSetWindowShape(1024, 768);
         ofSetWindowPosition((ofGetScreenWidth()/2)-(1024/2), 0);
-    }
-}
-
-void ofApp::additional_setup()  {
-    
-    if(realtime)    {
-        current_time_series = intra_day_series;
-        current_json_series = json_time_series_intraday_label;
-    }
-    else{
-        current_time_series = daily_series;
-        current_json_series = json_time_series_daily_label;
     }
 }

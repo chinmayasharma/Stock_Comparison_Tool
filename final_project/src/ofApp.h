@@ -10,38 +10,25 @@
 class ofApp: public ofBaseApp, ofThread
 {
     
-public:
-    
-    void setup();
-    void draw();
-    void update();
-
-    bool make_api_request(std::string symbol);
-    void generate_plot();
-    void additional_setup();
-    
-    int json_values;
-    int current_json_values;
+private:
     
     std::vector<std::string> ticker_symbols;
+    std::vector<ofColor> ticker_colors;
+    std::vector<std::vector<Data>> all_stocks;
+    
     string ticker_one;
     string ticker_two;
     string current_ticker;
     
     string attribute;
-    
     string current_time_series;
     string current_json_series;
-    
-    std::vector<std::vector<Data>> all_stocks;
-    
-    int range;
     
     ofColor ticker_one_color;
     ofColor ticker_two_color;
     ofColor current_ticker_color;
     
-    std::vector<ofColor> ticker_colors;
+    long range;
     
     bool should_compare;
     bool should_display;
@@ -54,14 +41,31 @@ public:
     ofxDatGui* gui;
     ofTimer timer;
     
+public:
+    
+    void setup();
+    void draw();
+    void update();
+    
+    void initial_values();
+    void gui_listeners();
+    void fill_ticker_vectors();
+    
+    bool make_api_request(std::string symbol);
+    
+    void additional_setup();
+    void generate_plot();
+    void annotate_plot();
+    
     bool mFullscreen;
     void refreshWindow();
     void toggleFullscreen();
+    
     void onButtonEvent(ofxDatGuiButtonEvent e);
     void onToggleEvent(ofxDatGuiToggleEvent e);
     void onSliderEvent(ofxDatGuiSliderEvent e);
+    
     void onTextInputEvent(ofxDatGuiTextInputEvent e);
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
     void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
-    
 };

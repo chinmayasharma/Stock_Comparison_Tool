@@ -24,7 +24,6 @@ std::vector<Data> parse(ofxJSONElement retreived_json, string json_series) {
                          stod(value[json_volume_attribute_label].asString()));
         temp_stocks.push_back(stock_value);
     }
-    cout << temp_stocks.size() << endl;
     return temp_stocks;
 }
 
