@@ -14,6 +14,7 @@
 		7A4672EEE0CBDA94E2631800 /* ofxGLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB590568A8BA2329902B9C3 /* ofxGLayer.cpp */; };
 		8230C10D2097FE0F00DC48CE /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8230C10B2097FE0F00DC48CE /* utility.cpp */; };
 		8230C10F2098012400DC48CE /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8230C10E2098012400DC48CE /* constants.cpp */; };
+		8230C11A2098EF8100DC48CE /* time_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8230C1182098EF8100DC48CE /* time_controller.cpp */; };
 		8747D9DD087D4ABADC44C5F6 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3E9DCB69F021DFECC380E62 /* ofxSmartFont.cpp */; };
 		8EEBC3819B50D2F0B45050AE /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D547FA5189816B9AC1E65EF /* ofxDatGui.cpp */; };
 		A1DD48B7E85BA69B9D314FE5 /* ofxGAxis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E00C0D7DF8E0241F81917F /* ofxGAxis.cpp */; };
@@ -86,6 +87,8 @@
 		8230C10B2097FE0F00DC48CE /* utility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
 		8230C10C2097FE0F00DC48CE /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 		8230C10E2098012400DC48CE /* constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
+		8230C1182098EF8100DC48CE /* time_controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = time_controller.cpp; sourceTree = "<group>"; };
+		8230C1192098EF8100DC48CE /* time_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = time_controller.h; sourceTree = "<group>"; };
 		8C1B09863526D3267E920FBB /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiThemes.h; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/themes/ofxDatGuiThemes.h; sourceTree = SOURCE_ROOT; };
 		90344C7DF9F7AA24083BF030 /* ofxDatGuiComponent.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGuiComponent.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/core/ofxDatGuiComponent.cpp; sourceTree = SOURCE_ROOT; };
 		9D547FA5189816B9AC1E65EF /* ofxDatGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGui.cpp; path = ../../of_v0.9.8_osx_release/addons/ofxDatGui/src/ofxDatGui.cpp; sourceTree = SOURCE_ROOT; };
@@ -323,6 +326,8 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				8230C1182098EF8100DC48CE /* time_controller.cpp */,
+				8230C1192098EF8100DC48CE /* time_controller.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				F1D25EC41F318AAFAFA403E2 /* data.h */,
@@ -456,6 +461,7 @@
 				8230C10D2097FE0F00DC48CE /* utility.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				8230C11A2098EF8100DC48CE /* time_controller.cpp in Sources */,
 				F3E05E28DA56AAA95DECFED3 /* data.cpp in Sources */,
 				279AAB2F51D2310C0D56EF85 /* ofxDatGuiComponent.cpp in Sources */,
 				8EEBC3819B50D2F0B45050AE /* ofxDatGui.cpp in Sources */,

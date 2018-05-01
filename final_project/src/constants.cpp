@@ -37,7 +37,6 @@ std::map<std::string, std::string> _map = {{daily_series, json_time_series_daily
  */
 
 // buttons labels
-string compare_button_label = "                                  c o m p a r e";
 string display_button_label = "                                  d i s p l a y";
 
 //text input labels

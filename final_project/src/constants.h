@@ -42,7 +42,6 @@ extern string url_api_key_component;
  */
 
 // buttons labels
-extern string compare_button_label;
 extern string display_button_label;
 
 //text input labels

@@ -1,6 +1,8 @@
+
 #include "ofApp.h"
 #include "data.h"
 #include "utility.h"
+#include "time_controller.h"
 #include "constants.h"
 
 using std::string;
@@ -64,8 +66,7 @@ void ofApp::setup(){
     gui->addSlider(range_slider_label, 0, 100);
     gui->addBreak();
     
-    // compare and display buttons
-    gui->addButton(compare_button_label);
+    // display button
     gui->addButton(display_button_label);
     gui->addBreak();
     
@@ -124,25 +125,31 @@ void ofApp::additional_setup()  {
  */
 void ofApp::update() {
     
-    if(should_compare)   {
+    if((ticker_symbols.size() == 2) && should_display)   {
         additional_setup();
         
-        if(make_api_request(ticker_one))    {
-            if(make_api_request(ticker_two))    {
+        if(make_api_request(ticker_symbols[0]))    {
+            if(make_api_request(ticker_symbols[1]))    {
                 generate_plot();
             }
         }
-        should_compare = false;
     }
     
-    if (should_display) {
+    if ((ticker_symbols.size() == 1) && should_display) {
         additional_setup();
         
         if(make_api_request(current_ticker))    {
             generate_plot();
         }
-        should_display = false;
     }
+    should_display = false;
+
+    if (realtime)   {
+        if(time_controller.should_refresh()){
+        should_display = true;
+        }
+    }
+    
 }
 
 /**
@@ -259,23 +266,19 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     ticker_symbols.clear();
     ticker_colors.clear();
     
-    // if COMPARE button was pressed
-    if (e.target->is(compare_button_label)) {
-
-        // ensures that necessary values are selected
-        if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
-            
-            fill_ticker_vectors();
-            should_compare = true;
-        }
-    }
-    
     // if DISPLAY button was pressed
     if (e.target->is(display_button_label)) {
 
+        // ensures that necessary values are selected
+        if (!ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
+            time_controller.setup(0);
+            fill_ticker_vectors();
+            should_display = true;
+        }
+        
         // ensures only one text input was filled
         if (!ticker_one.empty() && ticker_two.empty() && !attribute.empty()) {
-            
+            time_controller.setup(0);
             ticker_symbols.push_back(ticker_one);
             ticker_colors.push_back(ticker_one_color);
             should_display = true;
@@ -283,7 +286,7 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         
         // ensures only one text input was filled
         if (ticker_one.empty() && !ticker_two.empty() && !attribute.empty()) {
-            
+            time_controller.setup(0);
             ticker_symbols.push_back(ticker_two);
             ticker_colors.push_back(ticker_two_color);
             should_display = true;

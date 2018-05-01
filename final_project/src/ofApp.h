@@ -5,9 +5,10 @@
 #include "ofxJSON.h"
 #include "ofxGrafica.h"
 #include "ofxDatGui.h"
+#include "time_controller.h"
 
 
-class ofApp: public ofBaseApp, ofThread
+class ofApp: public ofBaseApp
 {
     
 private:
@@ -30,7 +31,6 @@ private:
     
     long range;
     
-    bool should_compare;
     bool should_display;
     bool realtime;
     
@@ -39,7 +39,9 @@ private:
     
     ofxGPlot plot;
     ofxDatGui* gui;
-    ofTimer timer;
+    
+    TimeController time_controller;
+    
     
 public:
     

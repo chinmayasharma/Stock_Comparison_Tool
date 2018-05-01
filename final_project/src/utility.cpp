@@ -1,9 +1,3 @@
-//
-//  utility.cpp
-//  final_project
-//
-//  Created by Chinmaya Sharma on 4/30/18.
-//
 
 #include "utility.h"
 #include "data.h"
@@ -28,14 +22,12 @@ std::vector<Data> parse(ofxJSONElement retreived_json, string json_series) {
 }
 
 /**
- *
+ * Generates url for API request.
  */
 std::string generate_url(bool isRealtime, string time_series, string ticker_name)  {
     
     if(isRealtime)    {
         return initial_url_component + time_series + url_symbol_component + ticker_name+ "&interval=1min" +url_api_key_component;
     }
-    else{
-        return initial_url_component + time_series + url_symbol_component + ticker_name+ url_api_key_component;
-    }
+    return initial_url_component + time_series + url_symbol_component + ticker_name+ url_api_key_component;
 }
