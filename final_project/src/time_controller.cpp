@@ -1,3 +1,4 @@
+
 #include "ofMain.h"
 #include "time_controller.h"
 
@@ -13,6 +14,7 @@ void TimeController::setup(float s) {
  * Controls whether graph should be replotted.
  */
 bool TimeController::should_refresh() {
+    
     if (ofGetElapsedTimeMillis() - start_time > interval_time) {
         start_time = ofGetElapsedTimeMillis();
         return true;

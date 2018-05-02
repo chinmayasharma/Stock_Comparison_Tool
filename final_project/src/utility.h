@@ -1,9 +1,3 @@
-//
-//  utility.hpp
-//  final_project
-//
-//  Created by Chinmaya Sharma on 4/30/18.
-//
 
 #ifndef utility_h
 #define utility_h
