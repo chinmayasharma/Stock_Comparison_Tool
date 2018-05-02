@@ -73,6 +73,7 @@ void ofApp::setup(){
     // misc. utilities
     gui->addButton("screenshot");
     gui->addToggle("toggle fullscreen", false);
+    gui->addButton(exit_button_label);
     
     // header to drag the gui and reposition GUI
     gui->addHeader(":: drag me to reposition ::");
@@ -113,6 +114,7 @@ void ofApp::additional_setup()  {
     if(realtime)    {
         current_time_series = intra_day_series;
         current_json_series = json_time_series_intraday_label;
+        range = max_size;
     }
     else{
         current_time_series = daily_series;
@@ -250,7 +252,6 @@ void ofApp::annotate_plot() {
     }
     
     // Set the plot position on the screen
-    
     plot.getYAxis().setAxisLabelText("Attribute:   " + attribute);
     
     plot.setDim(550,550);
@@ -296,8 +297,15 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     // if SCREENSHOT button was pressed
     if (e.target->is("screenshot")) {
         
-        ofBeginSaveScreenAsPDF("screenshot-" + ofGetTimestampString() + ".pdf");
-        ofEndSaveScreenAsPDF();
+        screenshot.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+        string fileName = "Screenshot: " + ofGetTimestampString() + ".png";
+        screenshot.save(fileName);
+    }
+   
+    // if QUIT APPLICATION button was pressed
+    if (e.target->is(exit_button_label)) {
+        
+        ofExit();
     }
     
 }

@@ -43,6 +43,8 @@ extern string url_api_key_component;
 
 // buttons labels
 extern string display_button_label;
+extern string screenshot_button_label;
+extern string exit_button_label;
 
 //text input labels
 extern string ticker_one_label;
@@ -61,6 +63,7 @@ extern ofColor default_color_two;
 // slider labels
 
 extern string range_slider_label;
+extern int max_size;
 extern int default_range;
 
 // drop down meny labels

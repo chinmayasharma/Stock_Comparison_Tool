@@ -36,8 +36,10 @@ std::map<std::string, std::string> _map = {{daily_series, json_time_series_daily
  * GUI related constants.
  */
 
-// buttons labels
-string display_button_label = "                                  d i s p l a y";
+// display and exit buttons labels
+string display_button_label = "                                         d i s p l a y";
+string screenshot_button_label = "screenshot";
+string exit_button_label = "                             q u i t    a p p l i c a t i o n";
 
 //text input labels
 string ticker_one_label = "**  ticker #1";
@@ -56,7 +58,9 @@ ofColor default_color_two = ofColor::fromHex(0x5B5EA6);
 // slider labels
 
 string range_slider_label = "** range";
+
 int default_range = 50;
+int max_size = 100;
 
 // drop down meny labels
 

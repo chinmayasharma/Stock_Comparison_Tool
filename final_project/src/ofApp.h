@@ -39,6 +39,7 @@ private:
     
     ofxGPlot plot;
     ofxDatGui* gui;
+    ofImage screenshot;
     
     TimeController time_controller;
     
